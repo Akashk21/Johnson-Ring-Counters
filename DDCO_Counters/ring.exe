@@ -1,0 +1,85 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_010E4410 .scope module, "tb_ring" "tb_ring" 2 1;
+ .timescale 0 0;
+v00FC3A98_0 .var "Clock", 0 0;
+v00FC3AF0_0 .net "Count_out", 3 0, v010E3288_0; 1 drivers
+v00FC3B48_0 .var "Reset", 0 0;
+S_010E4498 .scope module, "uut" "ring_counter" 2 11, 3 1, S_010E4410;
+ .timescale 0 0;
+v010E31D8_0 .net "Clock", 0 0, v00FC3A98_0; 1 drivers
+v010E3230_0 .alias "Count_out", 3 0, v00FC3AF0_0;
+v010E3288_0 .var "Count_temp", 3 0;
+v00FC3A40_0 .net "Reset", 0 0, v00FC3B48_0; 1 drivers
+E_00FC18F0/0 .event edge, v00FC3A40_0;
+E_00FC18F0/1 .event posedge, v010E31D8_0;
+E_00FC18F0 .event/or E_00FC18F0/0, E_00FC18F0/1;
+    .scope S_010E4498;
+T_0 ;
+    %wait E_00FC18F0;
+    %load/v 8, v00FC3A40_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %movi 8, 1, 4;
+    %set/v v010E3288_0, 8, 4;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/v 8, v010E31D8_0, 1;
+    %jmp/0xz  T_0.2, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_0.4, 4;
+    %load/x1p 12, v010E3288_0, 1;
+    %jmp T_0.5;
+T_0.4 ;
+    %mov 12, 2, 1;
+T_0.5 ;
+    %mov 8, 12, 1; Move signal select into place
+    %load/v 9, v010E3288_0, 3; Select 3 out of 4 bits
+    %set/v v010E3288_0, 8, 4;
+T_0.2 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_010E4410;
+T_1 ;
+    %set/v v00FC3A98_0, 0, 1;
+    %end;
+    .thread T_1;
+    .scope S_010E4410;
+T_2 ;
+    %delay 10, 0;
+    %load/v 8, v00FC3A98_0, 1;
+    %inv 8, 1;
+    %set/v v00FC3A98_0, 8, 1;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_010E4410;
+T_3 ;
+    %set/v v00FC3B48_0, 1, 1;
+    %delay 10, 0;
+    %set/v v00FC3B48_0, 0, 1;
+    %delay 150, 0;
+    %vpi_call 2 28 "$finish";
+    %end;
+    .thread T_3;
+    .scope S_010E4410;
+T_4 ;
+    %vpi_call 2 31 "$monitor", $time, " clock=%1b,reset=%1b,q=%4b", v00FC3A98_0, v00FC3B48_0, v00FC3AF0_0;
+    %end;
+    .thread T_4;
+    .scope S_010E4410;
+T_5 ;
+    %vpi_call 2 33 "$dumpfile", "tb_ringtest.vcd";
+    %vpi_call 2 33 "$dumpvars", 1'sb0, S_010E4410;
+    %end;
+    .thread T_5;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "ring_tb.v";
+    "ring.v";

@@ -1,0 +1,105 @@
+$date
+	Wed Nov 24 11:53:17 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_ring $end
+$var wire 4 ! Count_out [3:0] $end
+$var reg 1 " Clock $end
+$var reg 1 # Reset $end
+$scope module uut $end
+$var wire 1 $ Clock $end
+$var wire 4 % Count_out [3:0] $end
+$var wire 1 & Reset $end
+$var reg 4 ' Count_temp [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1 '
+1&
+b1 %
+0$
+1#
+0"
+b1 !
+$end
+#10
+b10 '
+b10 !
+b10 %
+0#
+0&
+1"
+1$
+#20
+0"
+0$
+#30
+b100 '
+b100 !
+b100 %
+1"
+1$
+#40
+0"
+0$
+#50
+b1000 '
+b1000 !
+b1000 %
+1"
+1$
+#60
+0"
+0$
+#70
+b1 '
+b1 !
+b1 %
+1"
+1$
+#80
+0"
+0$
+#90
+b10 '
+b10 !
+b10 %
+1"
+1$
+#100
+0"
+0$
+#110
+b100 '
+b100 !
+b100 %
+1"
+1$
+#120
+0"
+0$
+#130
+b1000 '
+b1000 !
+b1000 %
+1"
+1$
+#140
+0"
+0$
+#150
+b1 '
+b1 !
+b1 %
+1"
+1$
+#160
+0"
+0$
